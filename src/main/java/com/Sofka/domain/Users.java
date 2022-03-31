@@ -1,6 +1,7 @@
 package com.Sofka.domain;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,10 +22,15 @@ public class Users implements Serializable{
     @Column(name = "usu_id")
     private Integer id;
     
-    @Column(name="usu_username")
+    @Column(name="usu_username" ,nullable = false, length = 100)
     private String username;
     
-    @Column(name="usu_password")
+    @Column(name="usu_password", nullable = false, length = 100)
     private String password;
     
+    @Column(name="usu_create_at" , nullable = false)
+    private Instant create_at;
+    
+    @Column (name="usu_update_at", nullable = false)
+    private Instant update_at;
 }

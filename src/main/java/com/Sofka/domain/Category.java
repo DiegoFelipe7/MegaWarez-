@@ -1,6 +1,7 @@
 package com.Sofka.domain;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,5 +26,6 @@ public class Category implements Serializable{
 	@Column(name="cat_nombre" , nullable = false , length = 100)
 	private String nombre;
 	
-
+	@Column(name="cat_create_at" )
+	private Instant createdAt;
 }
