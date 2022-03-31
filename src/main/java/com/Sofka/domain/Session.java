@@ -5,10 +5,15 @@ import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 
@@ -22,6 +27,12 @@ public class Session implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ses_id")
     private Integer id;
+    
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Users.class, optional = false)
+    @JoinColumn(name = "ses_usuario_id", nullable = false)
+    @JsonBackReference
+    private Users usuario;
+    
     
     @Column(name="ses_token")
     private String token;
