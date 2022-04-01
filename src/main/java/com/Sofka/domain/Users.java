@@ -22,15 +22,60 @@ public class Users implements Serializable{
     @Column(name = "usu_id")
     private Integer id;
     
-    @Column(name="usu_username" ,nullable = false, length = 100)
+    @Column(name="usu_username")
     private String username;
     
-    @Column(name="usu_password", nullable = false, length = 100)
+    @Column(name="usu_password")
     private String password;
     
-    @Column(name="usu_create_at" , nullable = false)
+    @Column(name="usu_created_at")
     private Instant create_at;
     
-    @Column (name="usu_update_at", nullable = false)
+    @Column (name="usu_updated_at")
     private Instant update_at;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Instant getCreate_at() {
+		return create_at;
+	}
+
+	public void setCreate_at(Instant create_at) {
+		this.create_at = create_at;
+	}
+
+	public Instant getUpdate_at() {
+		return update_at;
+	}
+
+	public void setUpdate_at(Instant update_at) {
+		this.update_at = update_at;
+	}
+    
+    
+    
+    
+    
 }
