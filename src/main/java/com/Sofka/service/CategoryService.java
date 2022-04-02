@@ -1,6 +1,7 @@
 package com.Sofka.service;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -20,12 +21,13 @@ public class CategoryService implements Icategoria{
 
 	@Override
 	public List<Category> getCategoria() {
-		return categoryRepository.findAll();
+		return categoryRepository.finall();
 	}
 
 	@Override
 	public Category saveCategory(Category categoria) {
 		categoria.setCreatedAt(Instant.now());
+		categoria.setStatus("1");
 		return categoryRepository.save(categoria);
 	}
 
@@ -43,8 +45,23 @@ public class CategoryService implements Icategoria{
 	}
 	
 	@Transactional
-	public void deleteLogic(Integer id , Category categoria) {
-	    categoryRepository.deletelogic(id, categoria.getStatus());
+	public Category deleteLogic(Integer id , Category categoria) {
+		var categorias = categoryRepository.findById(id);
+		if(categorias.isPresent()) {
+			categoryRepository.deletelogic(id, categoria.getStatus());
+			return categorias.get();
+		}else {
+			return null;
+		}
+	}
+	
+	@Transactional
+	public List<Category> searchCategory(String dato){
+		var search=categoryRepository.findbyName(dato);
+		var answer = new HashSet<Category>();
+        answer.addAll(search);
+        return answer.stream().toList();
+		
 	}
 
 }

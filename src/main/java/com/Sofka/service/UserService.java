@@ -32,9 +32,10 @@ public class UserService  implements Iusers {
 	}
 
 	@Override
-	public Users updateUser(Integer id, Users users) {
-		// TODO Auto-generated method stub
-		return null;
+	public Users updateUser(Integer id, Users usuarios) {
+		usuarios.setId(id);
+		usuarios.setUpdate_at(Instant.now());
+        return UsersRepository.save(usuarios);
 	}
 
 	@Override

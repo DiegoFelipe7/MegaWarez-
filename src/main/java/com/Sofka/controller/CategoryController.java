@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -98,7 +99,7 @@ public class CategoryController {
 	        try {
 	            response.data = categoryService.deleteCategoria(id);
 	            if (response.data == null) {
-	                response.message = "El contacto no existe";
+	                response.message = "La categoria no existe";
 	                httpStatus = HttpStatus.NOT_FOUND;
 	            } else {
 	                response.message = "La categoria fue removido exitosamente";
@@ -106,6 +107,62 @@ public class CategoryController {
 	            }
 	        } catch (DataAccessException exception) {
 	            getErrorMessageForResponse(exception);
+	        } catch (Exception exception) {
+	            getErrorMessageInternal(exception);
+	        }
+	        return new ResponseEntity(response, httpStatus);
+	    }
+	  
+	  
+	    /**
+	     * Actualiza el status de una categoria
+	     *
+	     * @param categoria Objeto Categoria
+	     * @param id Identificador del a actualizar
+	     * @return Objeto Response en formato JSON
+	     *
+	     * @author Diego Muñoz <diegofelipem99@gmail.com>
+	     * @since 1.0.0
+	     */
+	    @PatchMapping(path = "/api/categoria/status/{id}")
+	    public ResponseEntity<Response> updateStatus(
+	            @RequestBody Category categoria,
+	            @PathVariable(value="id") Integer id
+	    ) {
+	        response.restart();
+	        try {
+	        	response.data = categoryService.deleteLogic(id, categoria);
+	        	 if (response.data == null) {
+		                response.message = "La categoria no existe";
+		                httpStatus = HttpStatus.NOT_FOUND;
+		            } else {
+		                response.message = "La categoria fue removido exitosamente";
+		                httpStatus = HttpStatus.OK;
+		            }
+	        } catch (DataAccessException exception) {
+	            getErrorMessageForResponse(exception);
+	        } catch (Exception exception) {
+	            getErrorMessageInternal(exception);
+	        }
+	        return new ResponseEntity(response, httpStatus);
+	    }
+	    /**
+	     * Devuelve el listado de categorias por su nombre
+	     *
+	     * @param dataToSearch Información a buscar
+	     * @return Objeto Response en formato JSON
+	     *
+	     * @author Diego Muñoz <diegofelipem99@gmail.com>
+	     * @since 1.0.0
+	     */
+	    @GetMapping(path = "/api/search/categoria/{dataToSearch}")
+	    public ResponseEntity<Response> searchContactByNombreOrApellido(
+	            @PathVariable(value="dataToSearch") String dataToSearch
+	    ) {
+	        response.restart();
+	        try {
+	            response.data = categoryService.searchCategory(dataToSearch);
+	            httpStatus = HttpStatus.OK;
 	        } catch (Exception exception) {
 	            getErrorMessageInternal(exception);
 	        }

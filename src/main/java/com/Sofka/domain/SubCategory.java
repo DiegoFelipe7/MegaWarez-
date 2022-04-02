@@ -32,6 +32,9 @@ public class SubCategory implements Serializable {
 	 @Column(name="scat_nombre",nullable = false, length = 100)
 	 private String nombre;
 	 
+	 @Column(name="scat_status",nullable = false, length = 100)
+	 private Integer status;
+	 
 	 @Column(name="scat_create_at" , nullable = false)
 	 private Instant create_at;
 }

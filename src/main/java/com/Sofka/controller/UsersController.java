@@ -7,7 +7,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
@@ -81,6 +83,23 @@ public class UsersController {
 	        }
 	        return new ResponseEntity<Response>(response, httpStatus);
 	    }
+	  @PutMapping(path = "/api/users/{id}")
+	    public ResponseEntity<Response> updateUser(
+	            @RequestBody Users usuarios,
+	            @PathVariable(value="id") Integer id
+	    ) {
+	        response.restart();
+	        try {
+	            response.data = userservice.updateUser(id, usuarios);
+	            httpStatus = HttpStatus.OK;
+	        } catch (DataAccessException exception) {
+	            getErrorMessageForResponse(exception);
+	        } catch (Exception exception) {
+	            getErrorMessageInternal(exception);
+	        }
+	        return new ResponseEntity(response, httpStatus);
+	    }
+
 	  
 	  @PostMapping(path = "/api/login")
 	    public ResponseEntity<Response> login(@RequestBody LoginData loginData) {
@@ -112,7 +131,8 @@ public class UsersController {
 	        }
 	        return new ResponseEntity(response, httpStatus);
 	    }
-
+	  
+	
 	  
 	  /**
 	     * Administrador para las excepciones del sistema

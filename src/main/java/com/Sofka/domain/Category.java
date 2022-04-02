@@ -23,10 +23,10 @@ public class Category implements Serializable{
 	@Column(name="cat_id" , nullable = false)
 	private Integer id;
 	
-	@Column(name="cat_nombre" , nullable = false , length = 100)
+	@Column(name="cat_nombre")
 	private String nombre;
 	
-	@Column(name="cat_status" , nullable = false , length = 100)
+	@Column(name="cat_status")
 	private String status;
 	
 	
