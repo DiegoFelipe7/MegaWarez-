@@ -155,7 +155,7 @@ public class CategoryController {
 	     * @author Diego Muñoz <diegofelipem99@gmail.com>
 	     * @since 1.0.0
 	     */
-	    @GetMapping(path = "/api/search/categoria/{dataToSearch}")
+	    @GetMapping(path = "/api/search/categoria/{dataToSearch}/{order}")
 	    public ResponseEntity<Response> searchContactByNombreOrApellido(
 	            @PathVariable(value="dataToSearch") String dataToSearch
 	    ) {
@@ -168,6 +168,7 @@ public class CategoryController {
 	        }
 	        return new ResponseEntity(response, httpStatus);
 	    }
+	    
 
 	  /**
 	     * Administrador para las excepciones del sistema

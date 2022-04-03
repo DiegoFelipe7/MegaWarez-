@@ -25,6 +25,21 @@ public interface IsubCategory {
      * @since 1.0.0
      */
 	public SubCategory saveSubCategory(SubCategory subcategory);
+	
+	 /**
+     * actualiza los datos de una subcategoria en el sistema
+     *
+     * @param subcategoria Objeto del subcategoria a actualizar
+     * @param id Objeto del subcategoria a actualizar
+     * 
+     * @return Objeto del subcategoria actualizado
+     *
+     * @author Diego Muñoz <diegofelipem99@gmail.com>
+     * @since 1.0.0
+     */
+	public SubCategory updateSubcategory(Integer id , SubCategory subCategory);
+	
+	
 	 /**
      * elimina una subcategoria del sistema 
      * @param id Integer
@@ -33,7 +48,7 @@ public interface IsubCategory {
      * @since 1.0.0
      */
 	
-	public Category deleteCategoria (Integer id);
+	public SubCategory deleteCategoria (Integer id);
 	
 	
 	
