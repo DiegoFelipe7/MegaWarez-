@@ -2,6 +2,7 @@ package com.Sofka.service.Interface;
 
 import java.util.List;
 
+import com.Sofka.domain.Session;
 import com.Sofka.domain.Users;
 
 public interface Iusers {
@@ -70,5 +71,8 @@ public interface Iusers {
      * @author Diego Muñoz <diegofelipem99@gmail.com>
      * @since 1.0.0
      */
-	public void deleteUser (Users usuario );
+	public Users deleteUser (Integer id );
+	
+	
+	public Session Login (Users usuario , String token, Session sesion);
 }

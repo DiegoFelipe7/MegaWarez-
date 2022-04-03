@@ -2,7 +2,7 @@ package com.Sofka.service;
 
 import java.time.Instant;
 import java.util.List;
-
+import org.springframework.data.domain.Sort;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class SubCategoryService implements IsubCategory {
 	@Transactional
 	public SubCategory saveSubCategory(SubCategory subcategory) {
 		subcategory.setCreate_at(Instant.now());
-		subcategory.setStatus(1);
+		subcategory.setStatus("1");
 		return subcategoryrepository.save(subcategory);
 	}
 
@@ -59,8 +59,13 @@ public class SubCategoryService implements IsubCategory {
 
 	@Override
 	public SubCategory updateSubcategory(Integer id, SubCategory subCategory) {
-		// TODO Auto-generated method stub
-		return null;
+		subCategory.setId(id);
+		subCategory.setCreate_at(Instant.now());
+		return subcategoryrepository.save(subCategory);
 	}
 
+	@Transactional
+    public List<SubCategory> getListSubcategory(String field, Sort.Direction order) {
+        return subcategoryrepository.findAll(Sort.by(order, field));
+    }
 }

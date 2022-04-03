@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,22 +15,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.data.domain.Sort;
 
+import com.Sofka.domain.Item;
 import com.Sofka.domain.SubCategory;
+import com.Sofka.service.ItemService;
 import com.Sofka.service.SubCategoryService;
 import com.Sofka.utility.Response;
 
 import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
 @RestController
-public class SubCategoryController {
+public class ItemController {
 	/**
      * Variable para el manejo de las respuestas de las API
      */
 	@Autowired
-	private SubCategoryService subcategoryservice;
+	private ItemService itemService;
 	
 	/**
     * Manejo del código HTTP que se responde en las API
@@ -38,12 +39,12 @@ public class SubCategoryController {
 	
 	private Response response = new Response();
 	
-	
-	@GetMapping("api/subcategoria")
-	public ResponseEntity<Response> getSubcategorias(){
+
+	@GetMapping("api/item")
+	public ResponseEntity<Response> getItem(){
 		response.restart();
 		try {
-			response.data=subcategoryservice.getSubCategory();
+			response.data=itemService.getItem();
 			httpStatus = HttpStatus.OK;
 			
 		} catch (Exception exception) {
@@ -61,7 +62,7 @@ public class SubCategoryController {
      * @author Diego felipe muñoz <diegofelipem99@gmail.com>
      * @since 1.0.0
      */
-    @GetMapping(path = "/api/orderby/{orderBy}/{order}")
+    /*@GetMapping(path = "/api/orderby/{orderBy}/{order}")
     public ResponseEntity<Response> indexOrderBy(
             @PathVariable(value="orderBy") String orderBy,
             @PathVariable(value="order") Sort.Direction order
@@ -74,12 +75,12 @@ public class SubCategoryController {
             getErrorMessageInternal(exception);
         }
         return new ResponseEntity(response, httpStatus);
-    }
-	@PostMapping("api/subcategoria")
-	public ResponseEntity<Response> saveSubcategory(@RequestBody SubCategory subcategoria){
+    }*/
+	@PostMapping("api/item")
+	public ResponseEntity<Response> saveSubcategory(@RequestBody Item item){
 		response.restart();
 		try {
-			response.data=subcategoryservice.saveSubCategory(subcategoria);
+			response.data=itemService.saveItem(item);
 			 httpStatus = HttpStatus.CREATED;
 		} catch (DataAccessException exception) {
             getErrorMessageForResponse(exception);
@@ -88,11 +89,11 @@ public class SubCategoryController {
         }
         return new ResponseEntity<Response>(response, httpStatus);
     }
-	@PutMapping("api/subcategoria/{id}")
-	public ResponseEntity<Response> updateSubCategoria(@PathVariable(value="id") Integer id , @RequestBody SubCategory subCategory){
+	@PutMapping("api/item/{id}")
+	public ResponseEntity<Response> updateSubCategoria(@PathVariable(value="id") Integer id , @RequestBody Item item){
 		response.restart();
 		try {
-			response.data=subcategoryservice.updateSubcategory(id, subCategory);
+			response.data=itemService.updateItem(id, item);
 			 httpStatus = HttpStatus.OK;
 		} catch (DataAccessException exception) {
             getErrorMessageForResponse(exception);
@@ -102,11 +103,11 @@ public class SubCategoryController {
         return new ResponseEntity(response, httpStatus);
 	}
 	
-	@DeleteMapping("api/subcategoria/{id}")
+	@DeleteMapping("api/item/{id}")
 	public ResponseEntity<Response> deleteSubCategor(@PathVariable(value="id") Integer id){
 		response.restart();
 		try {
-			response.data=subcategoryservice.deleteCategoria(id);
+			response.data=itemService.deleteItem(id);
 			 if (response.data == null) {
 	                response.message = "La sub categoria no existe";
 	                httpStatus = HttpStatus.NOT_FOUND;
@@ -122,11 +123,11 @@ public class SubCategoryController {
 	        return new ResponseEntity<Response>(response, httpStatus);
 	}
 	
-	@PatchMapping("api/subcategoria/status/{id}")
-	public ResponseEntity<Response> deleteLogicSub ( @RequestBody SubCategory subcategoria, @PathVariable(value="id") Integer id){
+	@PatchMapping("api/item/status/{id}")
+	public ResponseEntity<Response> deleteLogicSub ( @RequestBody Item item, @PathVariable(value="id") Integer id){
 		 response.restart();
 	        try {
-	        	response.data = subcategoryservice.deleteLogicSub(id, subcategoria);
+	        	response.data = itemService.deleteLogicoItem(id, item);
 	        	 if (response.data == null) {
 		                response.message = "La categoria no existe";
 		                httpStatus = HttpStatus.NOT_FOUND;
@@ -188,4 +189,5 @@ public class SubCategoryController {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
     }
+	
 }

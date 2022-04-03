@@ -2,10 +2,10 @@ package com.Sofka.service.Interface;
 
 import java.util.List;
 
-import com.Sofka.domain.Category;
-import com.Sofka.domain.SubCategory;
+import com.Sofka.domain.Download;
+import com.Sofka.domain.Item;
 
-public interface IsubCategory {
+public interface Idownload {
 	/**
      * Devuelve una lista de subcategoria 
      *
@@ -14,7 +14,7 @@ public interface IsubCategory {
      * @author Diego Muñoz <diegofelipem99@gmail.com>
      * @since 1.0.0
      */
-	public List<SubCategory> getSubCategory();
+	public List<Download> getItem();
 	 /**
      * Crea un subcategoria en el sistema
      *
@@ -24,7 +24,7 @@ public interface IsubCategory {
      * @author Diego Muñoz <diegofelipem99@gmail.com>
      * @since 1.0.0
      */
-	public SubCategory saveSubCategory(SubCategory subcategory);
+	public Download savedownload(Download download);
 	
 	 /**
      * actualiza los datos de una subcategoria en el sistema
@@ -37,7 +37,7 @@ public interface IsubCategory {
      * @author Diego Muñoz <diegofelipem99@gmail.com>
      * @since 1.0.0
      */
-	public SubCategory updateSubcategory(Integer id , SubCategory subCategory);
+	public Download updatedowload(Integer id , Download download);
 	
 	
 	 /**
@@ -48,12 +48,5 @@ public interface IsubCategory {
      * @since 1.0.0
      */
 	
-	public SubCategory deleteCategoria (Integer id);
-	
-	
-	
-
-	
-	
-	
+	public Download deletedowload (Integer id);
 }

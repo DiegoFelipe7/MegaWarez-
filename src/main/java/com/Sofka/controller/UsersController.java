@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -73,7 +74,6 @@ public class UsersController {
 	    public ResponseEntity<Response> createUsuario(@RequestBody Users usuarios) {
 	        response.restart();
 	        try {
-	            //log.info("Contacto a crear: {}", contacto);
 	            response.data = userservice.SaveUsers(usuarios);
 	            httpStatus = HttpStatus.CREATED;
 	        } catch (DataAccessException exception) {
@@ -99,16 +99,62 @@ public class UsersController {
 	        }
 	        return new ResponseEntity(response, httpStatus);
 	    }
+	  
+
+	  @DeleteMapping(path = "/api/users/{id}")
+	  public ResponseEntity<Response> deleteUser(@PathVariable(value="id") Integer id){
+		  response.restart();
+	        try {
+	            response.data = userservice.deleteUser(id);
+	            if (response.data == null) {
+	                response.message = "El usuario no existe";
+	                httpStatus = HttpStatus.NOT_FOUND;
+	            } else {
+	                response.message = "El usuario fue removido exitosamente";
+	                httpStatus = HttpStatus.OK;
+	            }
+	        } catch (DataAccessException exception) {
+	            getErrorMessageForResponse(exception);
+	        } catch (Exception exception) {
+	            getErrorMessageInternal(exception);
+	        }
+	        return new ResponseEntity(response, httpStatus);
+	  }
 
 	  
 	  @PostMapping(path = "/api/login")
 	    public ResponseEntity<Response> login(@RequestBody LoginData loginData) {
 	        response.restart();
 	        try {
-	            response.message = "Todo OK";
-	            response.data = loginData.getToken();
-	            httpStatus = HttpStatus.OK;
-	            // realizo consulta para saber si el usuario y contraseña coinciden
+	        	response.data=loginData.getToken();
+	        	if (response.data == null) {
+		             response.message = "Nombre de usuario o contraseña incorrecta";
+		             httpStatus = HttpStatus.NOT_FOUND;
+		         } else {
+		                response.message = "Sesion iniciada";
+		                httpStatus = HttpStatus.OK;
+		         }
+	        } catch (DataAccessException exception) {
+	            getErrorMessageForResponse(exception);
+	        } catch (Exception exception) {
+	            getErrorMessageInternal(exception);
+	        }
+	        return new ResponseEntity(response, httpStatus);
+	    }
+	  
+	  
+	  @PostMapping(path = "/api/login2")
+	    public ResponseEntity<Response> login2(@RequestBody Users usuarios ) {
+	        response.restart();
+	        try {
+	        	response.data=userservice.Login2(usuarios);
+	        	if (response.data == null) {
+		             response.message = "Nombre de usuario o contraseña incorrecta";
+		             httpStatus = HttpStatus.NOT_FOUND;
+		         } else {
+		                response.message = "Sesion iniciada";
+		                httpStatus = HttpStatus.OK;
+		         }
 	        } catch (DataAccessException exception) {
 	            getErrorMessageForResponse(exception);
 	        } catch (Exception exception) {
@@ -131,7 +177,6 @@ public class UsersController {
 	        }
 	        return new ResponseEntity(response, httpStatus);
 	    }
-	  
 	
 	  
 	  /**

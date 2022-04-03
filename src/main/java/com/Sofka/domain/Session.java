@@ -28,10 +28,10 @@ public class Session implements Serializable {
     @Column(name="ses_id")
     private Integer id;
     
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Users.class, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Users.class)
     @JoinColumn(name = "ses_usuario_id", nullable = false)
     @JsonBackReference
-    private Users usuario;
+    private Users id_usuario;
     
     
     @Column(name="ses_token")
@@ -39,6 +39,39 @@ public class Session implements Serializable {
     
     @Column(name="ses_create_at")
     private Instant create_at;
-    
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Users getId_usuario() {
+		return id_usuario;
+	}
+
+	public void setId_usuario(Users id_usuario) {
+		this.id_usuario = id_usuario;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public Instant getCreate_at() {
+		return create_at;
+	}
+
+	public void setCreate_at(Instant create_at) {
+		this.create_at = create_at;
+	}
+
+
     
 }

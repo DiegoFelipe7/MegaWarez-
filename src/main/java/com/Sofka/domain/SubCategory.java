@@ -2,7 +2,10 @@ package com.Sofka.domain;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,9 +14,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 
@@ -36,11 +41,22 @@ public class SubCategory implements Serializable {
 	 private String nombre;
 	 
 	 @Column(name="scat_status" )
-	 private Integer status;
+	 private String status;
 	 
 	 @Column(name="scat_created_at")
 	 private Instant create_at;
+	 
+		
+   @OneToMany(mappedBy = "id_subcategoria",
+            targetEntity = Item.class,
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.REMOVE)
+    @JsonManagedReference
 
+    private List<SubCategory> item = new ArrayList<>();
+   
+   
+   
 	public Integer getId() {
 		return id;
 	}
@@ -65,11 +81,11 @@ public class SubCategory implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public Integer getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
@@ -80,6 +96,8 @@ public class SubCategory implements Serializable {
 	public void setCreate_at(Instant create_at) {
 		this.create_at = create_at;
 	}
+
+	
 	 
 	 
 }

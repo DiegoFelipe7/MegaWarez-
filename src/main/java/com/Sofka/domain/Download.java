@@ -33,14 +33,14 @@ public class Download implements Serializable {
 	            optional = false)
 	    @JoinColumn(name = "dwn_usuario_id")
 	    @JsonBackReference
-	    private Users user;
+	    private Users id_usuario;
 
 	    @ManyToOne(fetch = FetchType.LAZY,
 	            targetEntity = Item.class,
 	            optional = false)
 	    @JoinColumn(name = "dwn_item_id")
 	    @JsonBackReference
-	    private Item item;
+	    private Item idItem;
 
 	    @Column(name = "dwn_created_at", nullable = false)
 	    private Instant createdAt;
