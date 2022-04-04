@@ -14,7 +14,7 @@ public interface Idownload {
      * @author Diego Muñoz <diegofelipem99@gmail.com>
      * @since 1.0.0
      */
-	public List<Download> getItem();
+	public List<Download> getIDownload();
 	 /**
      * Crea un subcategoria en el sistema
      *

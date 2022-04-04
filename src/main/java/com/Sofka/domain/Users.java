@@ -2,20 +2,15 @@ package com.Sofka.domain;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 @Data
@@ -41,8 +36,8 @@ public class Users implements Serializable{
     @Column (name="usu_updated_at")
     private Instant update_at;
     
-    @OneToMany(mappedBy = "id_usuario",
-            targetEntity = Download.class,
+  /*  @OneToMany(mappedBy = "id_usuario",
+            targetEntity = Session.class,
             fetch = FetchType.EAGER,
             cascade = CascadeType.REMOVE)
     @JsonManagedReference
@@ -58,7 +53,7 @@ public class Users implements Serializable{
 	public void setUsuarios(List<Users> usuarios) {
 		this.usuarios = usuarios;
 	}
-
+   */
 	public Integer getId() {
 		return id;
 	}
@@ -98,9 +93,5 @@ public class Users implements Serializable{
 	public void setUpdate_at(Instant update_at) {
 		this.update_at = update_at;
 	}
-    
-    
-    
-    
     
 }

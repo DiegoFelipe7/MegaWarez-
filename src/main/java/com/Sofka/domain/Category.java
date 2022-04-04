@@ -40,6 +40,9 @@ public class Category implements Serializable{
 	@Column(name="cat_created_at" )
 	private Instant createdAt;
 	
+	 /**
+     * Punto de enlace entre la entidad del Categoria y Subcategoria (una categoria puede tener muchas subcategorias)
+     */
    @OneToMany(mappedBy = "id_categoria",
             targetEntity = SubCategory.class,
             fetch = FetchType.EAGER,

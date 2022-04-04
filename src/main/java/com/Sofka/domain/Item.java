@@ -2,10 +2,8 @@ package com.Sofka.domain;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,11 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 
@@ -31,8 +27,10 @@ public class Item implements Serializable {
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    @Column(name = "itm_id")
 	    private Integer id;
-	    
-	    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Category.class, optional = false)
+	    /**
+		  * Punto de enlace con la entidad sub categoria (una sub categoria puede tener muchos items)
+		 */
+	    @ManyToOne(fetch = FetchType.LAZY, targetEntity = SubCategory.class)
 	    @JoinColumn(name = "itm_subcategoria_id", nullable = false)
 	    @JsonBackReference
 	    private SubCategory id_subcategoria;
@@ -47,23 +45,8 @@ public class Item implements Serializable {
 	    @Column(name="itm_created_at")
 	    private Instant create_at;
 	    
-	    @OneToMany(mappedBy = "idItem",
-	            targetEntity = Download.class,
-	            fetch = FetchType.EAGER,
-	            cascade = CascadeType.REMOVE)
-	    @JsonManagedReference
-
-
-	    private List<Item> usuarios_item = new ArrayList<>();
 	    
 	    
-		public List<Item> getUsuarios_item() {
-			return usuarios_item;
-		}
-
-		public void setUsuarios_item(List<Item> usuarios_item) {
-			this.usuarios_item = usuarios_item;
-		}
 
 		public Integer getId() {
 			return id;

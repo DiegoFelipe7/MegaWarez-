@@ -39,7 +39,7 @@ public class SubCategoryController {
 	private Response response = new Response();
 	
 	
-	@GetMapping("api/subcategoria")
+	@GetMapping("/api/subcategoria")
 	public ResponseEntity<Response> getSubcategorias(){
 		response.restart();
 		try {
@@ -75,7 +75,7 @@ public class SubCategoryController {
         }
         return new ResponseEntity(response, httpStatus);
     }
-	@PostMapping("api/subcategoria")
+	@PostMapping("/api/subcategoria")
 	public ResponseEntity<Response> saveSubcategory(@RequestBody SubCategory subcategoria){
 		response.restart();
 		try {
@@ -88,7 +88,7 @@ public class SubCategoryController {
         }
         return new ResponseEntity<Response>(response, httpStatus);
     }
-	@PutMapping("api/subcategoria/{id}")
+	@PutMapping("/api/subcategoria/{id}")
 	public ResponseEntity<Response> updateSubCategoria(@PathVariable(value="id") Integer id , @RequestBody SubCategory subCategory){
 		response.restart();
 		try {
@@ -102,7 +102,7 @@ public class SubCategoryController {
         return new ResponseEntity(response, httpStatus);
 	}
 	
-	@DeleteMapping("api/subcategoria/{id}")
+	@DeleteMapping("/api/subcategoria/{id}")
 	public ResponseEntity<Response> deleteSubCategor(@PathVariable(value="id") Integer id){
 		response.restart();
 		try {
@@ -122,7 +122,7 @@ public class SubCategoryController {
 	        return new ResponseEntity<Response>(response, httpStatus);
 	}
 	
-	@PatchMapping("api/subcategoria/status/{id}")
+	@PatchMapping("/api/subcategoria/status/{id}")
 	public ResponseEntity<Response> deleteLogicSub ( @RequestBody SubCategory subcategoria, @PathVariable(value="id") Integer id){
 		 response.restart();
 	        try {

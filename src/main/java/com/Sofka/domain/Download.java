@@ -42,6 +42,44 @@ public class Download implements Serializable {
 	    @JsonBackReference
 	    private Item idItem;
 
-	    @Column(name = "dwn_created_at", nullable = false)
+	    @Column(name = "dwn_created_at")
 	    private Instant createdAt;
+
+		public Integer getId() {
+			return id;
+		}
+
+		public void setId(Integer id) {
+			this.id = id;
+		}
+
+		public Users getId_usuario() {
+			return id_usuario;
+		}
+
+		public void setId_usuario(Users id_usuario) {
+			this.id_usuario = id_usuario;
+		}
+
+		public Item getIdItem() {
+			return idItem;
+		}
+
+		public void setIdItem(Item idItem) {
+			this.idItem = idItem;
+		}
+
+		public Instant getCreatedAt() {
+			return createdAt;
+		}
+
+		public void setCreatedAt(Instant createdAt) {
+			this.createdAt = createdAt;
+		}
+	    
+	    
+
 }
+
+
+

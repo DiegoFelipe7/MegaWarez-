@@ -31,6 +31,9 @@ public class SubCategory implements Serializable {
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 @Column(name = "scat_id")
 	 private Integer id;
+	 /**
+	   * Punto de enlace con la entidad Categoria (una categoria puede tener muchos sub categorias)
+	  */
 
      @ManyToOne(fetch = FetchType.LAZY , targetEntity = Category.class )
      @JoinColumn(name="scat_categoria_id")
@@ -45,18 +48,27 @@ public class SubCategory implements Serializable {
 	 
 	 @Column(name="scat_created_at")
 	 private Instant create_at;
-	 
-		
-   @OneToMany(mappedBy = "id_subcategoria",
-            targetEntity = Item.class,
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.REMOVE)
-    @JsonManagedReference
+	
+	 	/**
+	     * Punto de enlace entre la entidad del sub categoria y item (una sub categoria puede tener muchos items)
+	     */
+	   @OneToMany(mappedBy = "id_subcategoria",
+	            targetEntity = Item.class,
+	            fetch = FetchType.EAGER,
+	            cascade = CascadeType.REMOVE)
+	    @JsonManagedReference
 
-    private List<SubCategory> item = new ArrayList<>();
-   
-   
-   
+	    private List<Item> items = new ArrayList<>();
+	   
+
+	public List<Item> getItems() {
+			return items;
+		}
+
+		public void setItems(List<Item> items) {
+			this.items = items;
+		}
+
 	public Integer getId() {
 		return id;
 	}

@@ -17,12 +17,13 @@ public class ItemService implements Iitem {
 	private ItemRepository itemrepository;
 	@Override
 	public List<Item> getItem() {
-		return itemrepository.findall();
+		return itemrepository.findAll();
 	}
 
 	@Override
 	public Item saveItem(Item item) {
 		item.setCreate_at(Instant.now());
+		item.setStatus("1");
 		return itemrepository.save(item);
 	}
 
@@ -52,6 +53,6 @@ public class ItemService implements Iitem {
 		return subcate.get();
 	}else {
 		return null;
-	}
+		}
 	}
 }

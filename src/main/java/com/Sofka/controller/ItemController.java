@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Sofka.domain.Item;
-import com.Sofka.domain.SubCategory;
 import com.Sofka.service.ItemService;
-import com.Sofka.service.SubCategoryService;
 import com.Sofka.utility.Response;
 
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +37,7 @@ public class ItemController {
 	private Response response = new Response();
 	
 
-	@GetMapping("api/item")
+	@GetMapping("/api/item")
 	public ResponseEntity<Response> getItem(){
 		response.restart();
 		try {
@@ -50,7 +47,7 @@ public class ItemController {
 		} catch (Exception exception) {
             getErrorMessageInternal(exception);
         }
-        return new ResponseEntity(response, httpStatus);
+        return new ResponseEntity<Response>(response, httpStatus);
 	}
 	/**
      * Devuelve las sub categorias ordenados en forma ascendente o descendente
@@ -76,7 +73,7 @@ public class ItemController {
         }
         return new ResponseEntity(response, httpStatus);
     }*/
-	@PostMapping("api/item")
+	@PostMapping("/api/item")
 	public ResponseEntity<Response> saveSubcategory(@RequestBody Item item){
 		response.restart();
 		try {
@@ -89,7 +86,7 @@ public class ItemController {
         }
         return new ResponseEntity<Response>(response, httpStatus);
     }
-	@PutMapping("api/item/{id}")
+	@PutMapping("/api/item/{id}")
 	public ResponseEntity<Response> updateSubCategoria(@PathVariable(value="id") Integer id , @RequestBody Item item){
 		response.restart();
 		try {
@@ -100,10 +97,10 @@ public class ItemController {
         } catch (Exception exception) {
             getErrorMessageInternal(exception);
         }
-        return new ResponseEntity(response, httpStatus);
+        return new ResponseEntity<Response>(response, httpStatus);
 	}
 	
-	@DeleteMapping("api/item/{id}")
+	@DeleteMapping("/api/item/{id}")
 	public ResponseEntity<Response> deleteSubCategor(@PathVariable(value="id") Integer id){
 		response.restart();
 		try {
@@ -123,24 +120,24 @@ public class ItemController {
 	        return new ResponseEntity<Response>(response, httpStatus);
 	}
 	
-	@PatchMapping("api/item/status/{id}")
+	@PatchMapping("/api/item/status/{id}")
 	public ResponseEntity<Response> deleteLogicSub ( @RequestBody Item item, @PathVariable(value="id") Integer id){
-		 response.restart();
-	        try {
-	        	response.data = itemService.deleteLogicoItem(id, item);
-	        	 if (response.data == null) {
-		                response.message = "La categoria no existe";
-		                httpStatus = HttpStatus.NOT_FOUND;
-		            } else {
-		                response.message = "La categoria fue removido exitosamente";
-		                httpStatus = HttpStatus.OK;
-		            }
-	        } catch (DataAccessException exception) {
-	            getErrorMessageForResponse(exception);
-	        } catch (Exception exception) {
-	            getErrorMessageInternal(exception);
-	        }
-	        return new ResponseEntity(response, httpStatus);
+		response.restart();
+        try {
+        	response.data = itemService.deleteLogicoItem(id, item);
+        	 if (response.data == null) {
+	                response.message = "La categoria no existe";
+	                httpStatus = HttpStatus.NOT_FOUND;
+	            } else {
+	                response.message = "La categoria fue removido exitosamente";
+	                httpStatus = HttpStatus.OK;
+	            }
+        } catch (DataAccessException exception) {
+            getErrorMessageForResponse(exception);
+        } catch (Exception exception) {
+            getErrorMessageInternal(exception);
+        }
+        return new ResponseEntity(response, httpStatus);
 	}
 	
 	 /**
@@ -176,7 +173,7 @@ public class ItemController {
                     response.message = "El dato ya está registrado";
                     break;
                 case 1452:
-                    response.message = "El usuario indicado no existe";
+                    response.message = "La sub categoria indicado no existe";
                     break;
                 default:
                     response.message = exception.getMessage();

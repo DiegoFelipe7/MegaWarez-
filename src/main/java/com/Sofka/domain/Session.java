@@ -37,7 +37,7 @@ public class Session implements Serializable {
     @Column(name="ses_token")
     private String token;
     
-    @Column(name="ses_create_at")
+    @Column(name="ses_created_at")
     private Instant create_at;
 
 	public Integer getId() {

@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.Sofka.domain.Category;
 import com.Sofka.domain.SubCategory;
 import com.Sofka.service.Interface.IsubCategory;
 import com.Sofka.repository.SubCategoryRepository;

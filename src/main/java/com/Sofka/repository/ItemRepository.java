@@ -11,7 +11,7 @@ import com.Sofka.domain.Item;
 
 public interface ItemRepository extends JpaRepository<Item, Integer>{
 	@Modifying
-	@Query("SELECT itm , sub FROM Item itm INNER JOIN SubCategory sub ON itm.id_subcategoria=sub.id  ")
+	@Query("SELECT itm , sub FROM Item itm INNER JOIN SubCategory sub ON itm.id_subcategoria=sub.id WHERE itm.status='1'")
 	public List<Item> findall();
 
 	@Modifying
