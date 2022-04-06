@@ -60,8 +60,8 @@ public interface UsersRepository extends JpaRepository<Users , Integer> {
   	  
   	  
   	 @Modifying
-     @Query("SELECT user FROM  Users user where  user.username = :username and  user.password = :password")
-     public List<Users> login_user2(
+     @Query("SELECT user FROM  Users  user where  user.username = :username and user.password = :password")
+     public Users login_user2(
              @Param(value = "username") String username,
              @Param(value = "password") String password
      );

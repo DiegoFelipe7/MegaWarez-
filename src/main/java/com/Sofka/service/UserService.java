@@ -87,14 +87,8 @@ public class UserService  implements Iusers {
 		return null;
 	}
 	
-	public Users Login2(Users usuario) {
-		return (Users) UsersRepository.login_user2(usuario.getUsername(), usuario.getPassword());
-		/*if(!login.isEmpty()) {
-			return (Users) login;
-		}else {
-			return (Users) login;
-		}*/
-	
+	public Users iniciarSesion(Users usuario) {
+		return UsersRepository.login_user2(usuario.getUsername(),usuario.getPassword());
 	}
 
 

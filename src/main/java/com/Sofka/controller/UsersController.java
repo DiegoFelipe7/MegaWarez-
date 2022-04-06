@@ -144,10 +144,10 @@ public class UsersController {
 	  
 	  
 	  @PostMapping(path = "/api/login2")
-	    public ResponseEntity<Response> login2(@RequestBody Users usuarios ) {
+	    public ResponseEntity<Response> loginUser(@RequestBody Users usuarios ) {
 	        response.restart();
 	        try {
-	        	response.data=userservice.Login2(usuarios);
+	        	response.data=userservice.iniciarSesion(usuarios);
 	        	if (response.data == null) {
 		             response.message = "Nombre de usuario o contraseña incorrecta";
 		             httpStatus = HttpStatus.NOT_FOUND;

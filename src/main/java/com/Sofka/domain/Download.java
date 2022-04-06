@@ -27,14 +27,18 @@ public class Download implements Serializable {
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    @Column(name = "dwn_id", nullable = false)
 	    private Integer id;
-
+	    /**
+		  * Punto de enlace con la entidad sub usuario (una sub categoria puede tener muchos items)
+		 */
 	    @ManyToOne(fetch = FetchType.LAZY,
 	            targetEntity = Users.class,
 	            optional = false)
 	    @JoinColumn(name = "dwn_usuario_id")
 	    @JsonBackReference
 	    private Users id_usuario;
-
+	    /**
+		  * Punto de enlace con la entidad item (una descarga puede tener muchos items)
+		 */
 	    @ManyToOne(fetch = FetchType.LAZY,
 	            targetEntity = Item.class,
 	            optional = false)

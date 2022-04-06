@@ -49,16 +49,16 @@ public class SubCategory implements Serializable {
 	 @Column(name="scat_created_at")
 	 private Instant create_at;
 	
-	 	/**
-	     * Punto de enlace entre la entidad del sub categoria y item (una sub categoria puede tener muchos items)
-	     */
-	   @OneToMany(mappedBy = "id_subcategoria",
-	            targetEntity = Item.class,
-	            fetch = FetchType.EAGER,
-	            cascade = CascadeType.REMOVE)
-	    @JsonManagedReference
+ 	/**
+     * Punto de enlace entre la entidad del sub categoria y item (una sub categoria puede tener muchos items)
+     */
+   @OneToMany(mappedBy = "id_subcategoria",
+            targetEntity = Item.class,
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.REMOVE)
+    @JsonManagedReference
 
-	    private List<Item> items = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
 	   
 
 	public List<Item> getItems() {

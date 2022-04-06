@@ -2,8 +2,10 @@ package com.Sofka.domain;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,9 +14,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 
@@ -45,8 +49,31 @@ public class Item implements Serializable {
 	    @Column(name="itm_created_at")
 	    private Instant create_at;
 	    
+		
+		 /**
+	     * Punto de enlace entre la entidad del item y descarga (una descarga puede tener muchas items)
+	     */
+	   /*@OneToMany(mappedBy = "idItem",
+	            targetEntity = Download.class,
+	            fetch = FetchType.EAGER,
+	            cascade = CascadeType.REMOVE)
+	    @JsonManagedReference
+
+	    private List<Download> item = new ArrayList<>();
 	    
-	    
+	   
+	   
+		public List<Download> getItem() {
+			return item;
+		}
+
+		public void setItem(List<Download> item) {
+			this.item = item;
+		}*/
+
+		public static long getSerialversionuid() {
+			return serialVersionUID;
+		}
 
 		public Integer getId() {
 			return id;

@@ -5,12 +5,16 @@ import java.sql.SQLException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Sofka.domain.Download;
+import com.Sofka.domain.Item;
 import com.Sofka.service.DownloadService;
 import com.Sofka.utility.Response;
 
@@ -45,9 +49,9 @@ public class DownloadController {
           return new ResponseEntity<Response>(response, httpStatus);
       }
     /**
-     * Crea un nueva categoria  en el sistema
+     * Crea un nueva descarga  en el sistema
      *
-     * @param categoria Objeto categoria a crear
+     * @param descarga Objeto descarga a crear
      * @return Objeto Response en formato JSON
      *
      * @author Diego Muñoz <diegofelipem99@gmail.com>
@@ -68,6 +72,42 @@ public class DownloadController {
 	        }
 	        return new ResponseEntity<Response>(response, httpStatus);
 	    }
+	  
+	  @PutMapping("/api/descarga/{id}")
+	  public ResponseEntity<Response> updateDescarga(@PathVariable(value="id") Integer id , @RequestBody Download descarga){
+			response.restart();
+			try {
+				response.data=downloadservice.updatedowload(id, descarga);
+				 httpStatus = HttpStatus.OK;
+			} catch (DataAccessException exception) {
+	            getErrorMessageForResponse(exception);
+	        } catch (Exception exception) {
+	            getErrorMessageInternal(exception);
+	        }
+	        return new ResponseEntity<Response>(response, httpStatus);
+		}
+	  
+	  
+	  @DeleteMapping("/api/descarga/{id}")
+	  public ResponseEntity<Response> elimarDescarga(@PathVariable("id") Integer id){
+		  response.restart();
+		  try {
+			response.data=downloadservice.deletedowload(id);
+			 if (response.data == null) {
+	                response.message = "La descarga no existe";
+	                httpStatus = HttpStatus.NOT_FOUND;
+	            } else {
+	                response.message = "La descarga fue removido exitosamente";
+	                httpStatus = HttpStatus.OK;
+	            }
+	        } catch (DataAccessException exception) {
+	            getErrorMessageForResponse(exception);
+	        } catch (Exception exception) {
+	            getErrorMessageInternal(exception);
+	        }
+	        return new ResponseEntity(response, httpStatus);
+		  
+	  }
     	
     /**
      * Administrador para las excepciones del sistema

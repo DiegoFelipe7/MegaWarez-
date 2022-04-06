@@ -39,7 +39,7 @@ public class CategoryController {
     private CategoryService categoryService;
     
     /**
-     * Index del sistema, responde con el listado de usuarios 
+     * Index del sistema, responde con el listado de categorias 
      *
      * @return Objeto Response en formato JSON
      *
